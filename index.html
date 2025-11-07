@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Weekend Schedule & Poll</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Sim's Dragon End Weekend Events</h1>
+    <h3>10:30PM EST /sqjoin on sim</h3>
+
+    <div class="day">
+      <button class="dropdown-btn">Friday (RITULIST) </button>
+      <div class="dropdown-content link">
+        <p>
+          <a target="_blank" href="https://gw2skills.net/editor/?PSgEEiWWAbiVxoYj4IdVOfB-DyQYhoi8LYHKI/DJYhQFSgMUBy8DBNUYBDA-e">POWER MINIONMANCER Ritulist Build</a>
+        </p>
+        <p>
+          <a target="_blank" href="https://gw2skills.net/editor/?PSgEEiWWAbiVxoYj4IdVOXB-DyQYhoi8LYHKI/DJYhQFSgMUBy8DBNUYBDA-e">POWER MINIONMANCER Quickness Ritulist Build</a>
+        </p>
+        <p>
+          <a target="_blank" href="https://gw2skills.net/editor/?PSgEEiWWAbiVxoYj4IdVOXB-DyQYhoi8LYHKI/DJYhQFSgMUBy8DBNUYBDA-e ">Celestial Alacrity Scourge Build</a>
+        </p>
+        <p>
+          <a target="_blank" href="https://gw2skills.net/editor/?PSwEgEmpMDGIDi9wGxidy+1D-DSRYQBJqGdcdlR1pQ6VgvTl2DqA-e">Heal Alacrity Scourge Build</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="day">
+      <button class="dropdown-btn">Saturday (AMALGAM)</button>
+      <div class="dropdown-content link">
+        <p>
+          <a target="_blank" href="https://gw2skills.net/editor/?PegAIRlJwsZcsNWKO2LvTNFo96THA-DSRYBRFH2cQnHSwChKkAZoCk53igEG7hXDFWwAVA-e">POWER Amalgam Build</a>
+        </p>
+        <p>
+          <a target="_blank" href="https://gw2skills.net/editor/?PegAIRlJwsZcsNWKO2LvTVFo96THA-DSRYBRFH2cQnHSwChKkAZoCk53igEG7hXDFWwAVA-e">POWER Alacrity Amalgam Build</a>
+        </p>
+        <p>
+          <a target="_blank" href="https://gw2skills.net/editor/?PegAIRlJwgYcsNWKOuLvtWA-DSRYBRFH2cQnHSwChKkAZoCk53igEG7hXDFWwAVA-e">POWER Quickness Scrapper Build</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="day">
+      <button class="dropdown-btn">Sunday (POLL)</button>
+      <div class="dropdown-content">
+        <p>Sunday Schedule & Poll</p>
+
+        <form id="poll-form">
+          <h2>Vote for up to 3 options</h2>
+          <div class="options">
+            <label><input type="checkbox" name="poll" value="Option 1"> POWER Antiquary</label>
+            <label><input type="checkbox" name="poll" value="Option 2"> POWER Paragon</label>
+            <label><input type="checkbox" name="poll" value="Option 3"> POWER Galeshot</label>
+            <label><input type="checkbox" name="poll" value="Option 4"> POWER Evoker</label>
+            <label><input type="checkbox" name="poll" value="Option 5"> POWER Conduit</label>
+            <label><input type="checkbox" name="poll" value="Option 6"> POWER Luminary</label>
+            <label><input type="checkbox" name="poll" value="Option 7"> POWER Bard</label>
+          </div>
+          <button type="submit" class="vote-btn">Submit Vote</button>
+        </form>
+
+        <div id="results" class="hidden">
+          <h2>Poll Results</h2>
+          <ul id="results-list"></ul>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </div>
+
+  <!-- Supabase JS (v2) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
