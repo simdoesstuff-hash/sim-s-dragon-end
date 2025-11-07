@@ -17,7 +17,27 @@ const form = document.getElementById('poll-form');
 const resultsDiv = document.getElementById('results');
 const resultsList = document.getElementById('results-list');
 
-// Get client IP (using a free IP API)
+// Generate a fingerprint for the device/browser
+async function getBrowserFingerprint() {
+  try {
+    // Check if FingerprintJS is available
+    if (typeof FingerprintJS === 'undefined') {
+      throw new Error('FingerprintJS not loaded');
+    }
+    
+    // Load the fingerprinting library
+    const fp = await FingerprintJS.load();
+    const result = await fp.get();
+    return result.visitorId;
+  } catch (error) {
+    console.error('Fingerprint error:', error);
+    // Fallback to IP + user agent combo
+    const ip = await getClientIP();
+    return ip + '-' + navigator.userAgent.substring(0, 50) + '-' + navigator.language;
+  }
+}
+
+// Get client IP (fallback method)
 async function getClientIP() {
   try {
     const response = await fetch('https://api.ipify.org?format=json');
@@ -30,14 +50,14 @@ async function getClientIP() {
   }
 }
 
-// Check if user has already voted
+// Check if user has already voted (using fingerprint)
 async function hasUserVoted() {
   try {
-    const ip = await getClientIP();
+    const fingerprint = await getBrowserFingerprint();
     const { data, error } = await client
       .from('voter_ips')
       .select('ip_address')
-      .eq('ip_address', ip)
+      .eq('ip_address', fingerprint)
       .single();
     
     return !error && data !== null;
@@ -47,13 +67,13 @@ async function hasUserVoted() {
   }
 }
 
-// Record that user has voted
+// Record that user has voted (using fingerprint)
 async function recordVote() {
   try {
-    const ip = await getClientIP();
+    const fingerprint = await getBrowserFingerprint();
     const { error } = await client
       .from('voter_ips')
-      .insert([{ ip_address: ip }]);
+      .insert([{ ip_address: fingerprint }]);
     
     if (error) throw error;
     return true;
@@ -99,7 +119,7 @@ form.addEventListener('submit', async (e) => {
   // Check if already voted
   const hasVoted = await hasUserVoted();
   if (hasVoted) {
-    alert('You have already voted! Each IP address can only vote once.');
+    alert('You have already voted! Each device/browser can only vote once.');
     form.classList.add('hidden');
     resultsDiv.classList.remove('hidden');
     return;
@@ -141,7 +161,7 @@ form.addEventListener('submit', async (e) => {
       }
     }
     
-    // Record that this IP has voted
+    // Record that this fingerprint has voted
     const recorded = await recordVote();
     if (!recorded) {
       alert('There was an issue recording your vote. Please try again.');
